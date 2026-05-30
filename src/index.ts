@@ -3,11 +3,12 @@ export type {
   ControllerFn,
   ControllerOptions,
   EndpointDocs,
-  EndpointFilter,
+  FilterFn,
   EndpointFn,
   EndpointOptions,
   HandleFn,
   Method,
+  MiddlewareFn,
 } from './framework/api'
 
 export { createOpenApiDocument, registerOpenApiEndpoint } from './framework/open-api'

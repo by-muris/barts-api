@@ -3,20 +3,23 @@ import { StatusCodeMap } from '@/framework/error-or/constants'
 import type {
   EndpointFn,
   EndpointOptions,
-  EndpointFilter,
+  FilterFn,
   HandleFn,
   Method,
+  MiddlewareFn,
 } from '@/framework/api/types'
 import { registerOpenApiEndpoint } from '@/framework/open-api'
 
 export const getEndpointFn: (
   router: Router,
   controllerPath: string,
-  controllerFilters: EndpointFilter[],
+  controllerFilters: FilterFn[],
+  controllerMiddleware: MiddlewareFn[],
 ) => EndpointFn = (
   router: Router,
   controllerPath: string,
-  controllerFilters: EndpointFilter[],
+  controllerFilters: FilterFn[],
+  controllerMiddleware: MiddlewareFn[],
 ): EndpointFn => {
   return <TResult = unknown>(
     path: string,
@@ -37,10 +40,26 @@ export const getEndpointFn: (
         },
       })
     }
-    const endpointFilters = options?.filters ?? []
-    const filters = [...controllerFilters, ...endpointFilters]
+
+    const endpointMiddleware = options?.middlewares ?? []
+    const middleware = [...controllerMiddleware, ...endpointMiddleware]
+
     const callback = async (req: Request, res: Response, next: NextFunction) => {
       try {
+        const endpointFilters = options?.filters ?? []
+        const filters = [...controllerFilters, ...endpointFilters]
+
+        for (const filter of filters) {
+          const filterResult = await filter(req)
+          if (!filterResult.ok) {
+            res
+              .status(StatusCodeMap[filterResult.error.type])
+              .json({ error: filterResult.error.message })
+              .end()
+            return
+          }
+        }
+
         const result = await handle(req, res, next)
         if (result.ok) {
           res.status(StatusCodeMap[result.type]).json(result.value).end()
@@ -58,19 +77,19 @@ export const getEndpointFn: (
     }
     switch (method) {
       case 'get':
-        router.get(path, ...filters, callback)
+        router.get(path, ...middleware, callback)
         break
       case 'post':
-        router.post(path, ...filters, callback)
+        router.post(path, ...middleware, callback)
         break
       case 'patch':
-        router.patch(path, ...filters, callback)
+        router.patch(path, ...middleware, callback)
         break
       case 'put':
-        router.put(path, ...filters, callback)
+        router.put(path, ...middleware, callback)
         break
       case 'delete':
-        router.delete(path, ...filters, callback)
+        router.delete(path, ...middleware, callback)
         break
     }
   }

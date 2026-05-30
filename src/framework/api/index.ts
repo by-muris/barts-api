@@ -11,8 +11,9 @@ export const controller = (
   return (application: Application) => {
     const router = Router()
     const filters = options?.filters ?? []
+    const middleware = options?.middlewares ?? []
     fn({
-      endpoint: getEndpointFn(router, path, filters),
+      endpoint: getEndpointFn(router, path, filters, middleware),
     })
     application.use(path, router)
   }
@@ -22,9 +23,10 @@ export type {
   ControllerFn,
   ControllerOptions,
   EndpointDocs,
-  EndpointFilter,
+  FilterFn,
   EndpointFn,
   EndpointOptions,
   HandleFn,
   Method,
+  MiddlewareFn,
 } from '@/framework/api/types'

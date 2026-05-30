@@ -2,11 +2,12 @@ import type { NextFunction, Request, Response } from 'express'
 import type { ErrorOr } from '@/framework/error-or'
 import type { ClassType, Responses } from '@/framework/open-api/types'
 
-export type EndpointFilter = (
+export type MiddlewareFn = (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => void | PromiseLike<void>
+export type FilterFn = (req: Request) => ErrorOr<unknown> | PromiseLike<ErrorOr<unknown>>
 export type HandleFn<T> = (
   req: Request,
   res: Response,
@@ -23,7 +24,8 @@ export type EndpointDocs = {
 export type EndpointOptions = {
   onUnhandledException?: 'throw'
   docs?: EndpointDocs
-  filters?: EndpointFilter[]
+  filters?: FilterFn[]
+  middlewares?: MiddlewareFn[]
 }
 
 export type EndpointFn<T = unknown> = (
@@ -34,6 +36,7 @@ export type EndpointFn<T = unknown> = (
 ) => void
 
 export type ControllerOptions = {
-  filters?: EndpointFilter[]
+  filters?: FilterFn[]
+  middlewares?: MiddlewareFn[]
 }
 export type ControllerFn = (args: { endpoint: EndpointFn }) => void

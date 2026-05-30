@@ -5,7 +5,8 @@ An opinionated Express API framework for small `by-muris` services.
 `@by-muris/barts-api` provides:
 
 - controller and endpoint registration
-- endpoint and controller filters
+- endpoint and controller filters using the `ErrorOr` result model
+- optional raw Express middleware for third-party integrations
 - OpenAPI document generation from decorated DTO classes
 - an `ErrorOr` result model with HTTP status mapping
 - a small dependency-injection container
@@ -16,7 +17,7 @@ This package deliberately keeps the request flow narrow. Endpoint handlers retur
 `ErrorOr<T>` values, and the framework converts those results into HTTP responses.
 
 Once you adopt the package, you are intentionally locked into the `ErrorOr` ecosystem
-for endpoint results:
+for endpoint and filter results:
 
 ```ts
 return ok({ todos: [] })
@@ -287,7 +288,9 @@ small enough to understand at a glance.
 
 ## Auth With Filters
 
-Filters use the standard Express middleware shape and run before an endpoint handler.
+Filters are part of the opinionated `ErrorOr` request flow. A filter receives the
+Express request, enriches or inspects it, and returns an `ErrorOr` result. The framework
+converts filter errors into HTTP responses before the endpoint handler runs.
 
 First, augment the Express request type:
 
@@ -308,26 +311,24 @@ export {}
 Create an auth filter factory:
 
 ```ts
-import type { EndpointFilter } from '@by-muris/barts-api'
+import { error, ErrorType, ok, type FilterFn } from '@by-muris/barts-api'
 
-export function requireAuth(): EndpointFilter {
-  return async (req, res, next) => {
+export function requireAuth(): FilterFn {
+  return async (req) => {
     const authorization = req.header('authorization')
 
     if (!authorization) {
-      res.status(401).json({ error: 'Unauthorized' })
-      return
+      return error(ErrorType.Unauthorized, 'Unauthorized')
     }
 
     const user = await verifyToken(authorization)
 
     if (!user) {
-      res.status(401).json({ error: 'Unauthorized' })
-      return
+      return error(ErrorType.Unauthorized, 'Unauthorized')
     }
 
     req.user = user
-    next()
+    return ok(undefined)
   }
 }
 ```
@@ -358,16 +359,15 @@ export const todosController = controller(
 Filter factories can take configuration:
 
 ```ts
-import type { EndpointFilter } from '@by-muris/barts-api'
+import { error, ErrorType, ok, type FilterFn } from '@by-muris/barts-api'
 
-export function requireRole(role: 'user' | 'admin'): EndpointFilter {
-  return (req, res, next) => {
+export function requireRole(role: 'user' | 'admin'): FilterFn {
+  return (req) => {
     if (req.user?.role !== role) {
-      res.status(403).json({ error: 'Forbidden' })
-      return
+      return error(ErrorType.Forbidden, 'Forbidden')
     }
 
-    next()
+    return ok(undefined)
   }
 }
 ```
@@ -384,4 +384,38 @@ Filters run in order:
 controller filters -> endpoint filters -> endpoint handler
 ```
 
-If a filter sends a response, it must not call `next()`.
+## Raw Express Middleware
+
+Use `middlewares` when integrating a third-party Express middleware package or when
+you deliberately need direct access to `res` and `next`.
+
+```ts
+import type { MiddlewareFn } from '@by-muris/barts-api'
+
+const requestLogger: MiddlewareFn = (req, _res, next) => {
+  console.log(req.method, req.path)
+  next()
+}
+```
+
+Apply middleware to one endpoint:
+
+```ts
+endpoint('/', 'get', handler, {
+  middlewares: [requestLogger],
+})
+```
+
+Or apply it to every endpoint in a controller:
+
+```ts
+export const todosController = controller('/todos', registerEndpoints, {
+  middlewares: [requestLogger],
+})
+```
+
+Middleware runs before filters:
+
+```text
+controller middleware -> endpoint middleware -> controller filters -> endpoint filters -> endpoint handler
+```
