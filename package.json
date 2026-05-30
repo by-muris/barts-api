@@ -22,9 +22,13 @@
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "prepack": "npm run build",
-    "prepare": "node scripts/prepare-husky.mjs",
+    "prepare": "husky",
     "typecheck": "tsc --noEmit",
     "pack:dry-run": "npm pack --dry-run"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   },
   "peerDependencies": {
     "class-transformer": "^0.5.0",
