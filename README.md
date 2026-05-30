@@ -1,3 +1,5 @@
+![Barts API](.github/cat.png)
+
 # @by-muris/barts-api
 
 An opinionated Express API framework for small `by-muris` services.
