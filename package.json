@@ -1,6 +1,6 @@
 {
   "name": "@by-muris/barts-api",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A small Express API framework with OpenAPI generation and dependency injection",
   "type": "module",
   "files": [
@@ -13,6 +13,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
+    },
+    "./logging": {
+      "types": "./dist/packages/logging/index.d.ts",
+      "import": "./dist/packages/logging/index.js"
     }
   },
   "scripts": {
