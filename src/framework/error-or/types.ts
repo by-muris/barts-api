@@ -5,6 +5,7 @@ export enum ErrorType {
   Unauthorized = 'Unauthorized',
   Forbidden = 'Forbidden',
   Unexpected = 'Unexpected',
+  UnprocessableEntity = 'UnprocessableEntity',
 }
 export enum ResultType {
   Ok = 'Ok',
