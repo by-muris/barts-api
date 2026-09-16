@@ -5,9 +5,10 @@ export const StatusCodeMap = {
   [ResultType.Created]: 201,
   [ResultType.NoContent]: 204,
   [ErrorType.Validation]: 400,
-  [ErrorType.NotFound]: 404,
-  [ErrorType.Conflict]: 409,
   [ErrorType.Unauthorized]: 401,
   [ErrorType.Forbidden]: 403,
+  [ErrorType.NotFound]: 404,
+  [ErrorType.Conflict]: 409,
+  [ErrorType.UnprocessableEntity]: 422,
   [ErrorType.Unexpected]: 500,
 } as const satisfies Record<ErrorType | ResultType, number>
