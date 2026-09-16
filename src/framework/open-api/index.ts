@@ -1,5 +1,6 @@
 import type { OpenApiDocsOptions, OpenApiOperation } from '@/framework/open-api/types'
 import type { Method } from '@/framework/api/types'
+import { defaultMetadataStorage } from 'class-transformer/cjs/storage.js'
 import {
   createPathParameters,
   createRequestBody,
@@ -21,6 +22,7 @@ export function createOpenApiDocument() {
     components: {
       schemas: validationMetadatasToSchemas({
         refPointerPrefix: '#/components/schemas/',
+        classTransformerMetadataStorage: defaultMetadataStorage,
       }),
     },
   }

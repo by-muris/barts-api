@@ -1,0 +1,23 @@
+@baseUrl = http://localhost:3000
+
+### Create a TODO
+POST {{baseUrl}}/api/todos
+Content-Type: application/json
+
+{
+  "name": "Buy milk"
+}
+
+### Create a TODO with an empty name (validation example)
+POST {{baseUrl}}/api/todos
+Content-Type: application/json
+
+{
+  "name": ""
+}
+
+### Create a TODO without a name (validation example)
+POST {{baseUrl}}/api/todos
+Content-Type: application/json
+
+{}

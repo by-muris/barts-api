@@ -1,0 +1,5 @@
+@baseUrl = http://localhost:3000
+
+### Get a TODO by ID
+GET {{baseUrl}}/api/todos/1
+Accept: application/json

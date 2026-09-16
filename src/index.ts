@@ -12,6 +12,7 @@ export type {
 } from './framework/api'
 
 export { createOpenApiDocument, registerOpenApiEndpoint } from './framework/open-api'
+export { JSONSchema } from 'class-validator-jsonschema'
 export type {
   ClassType,
   OpenApiDocsOptions,

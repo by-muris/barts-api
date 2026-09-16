@@ -1,0 +1,25 @@
+{
+  "name": "barts-api-example",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "node --preserve-symlinks --watch --loader ts-node/esm index.ts",
+    "start": "node --preserve-symlinks dist/index.js"
+  },
+  "dependencies": {
+    "@by-muris/barts-api": "file:..",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.4",
+    "class-validator-jsonschema": "^5.1.0",
+    "express": "^5.1.0",
+    "reflect-metadata": "^0.2.2",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/swagger-ui-express": "^4.1.8",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  }
+}

@@ -1,10 +1,13 @@
 {
   "name": "@by-muris/barts-api",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A small Express API framework with OpenAPI generation and dependency injection",
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    ".agents",
+    "AGENTS.md",
+    "CLAUDE.md"
   ],
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -37,11 +40,9 @@
   "peerDependencies": {
     "class-transformer": "^0.5.0",
     "class-validator": "^0.14.0",
+    "class-validator-jsonschema": "^5.1.0",
     "express": "^4.21.0 || ^5.0.0",
     "reflect-metadata": "^0.1.13 || ^0.2.0"
-  },
-  "dependencies": {
-    "class-validator-jsonschema": "^5.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -49,6 +50,7 @@
     "@types/node": "^22.13.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.4",
+    "class-validator-jsonschema": "^5.1.0",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "express": "^5.1.0",
