@@ -1,7 +1,7 @@
 interface:
-  display_name: "Document Barts API"
-  short_description: "Generate OpenAPI JSON and optional Swagger UI"
-  default_prompt: "Use $barts-api-docs to document this Barts API endpoint or app."
+  display_name: 'Document Barts API'
+  short_description: 'Generate OpenAPI JSON and optional Swagger UI'
+  default_prompt: 'Use $barts-api-docs to document this Barts API endpoint or app.'
 
 policy:
   allow_implicit_invocation: true

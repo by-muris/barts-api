@@ -1,5 +1,5 @@
 import { JSONSchema } from '@by-muris/barts-api'
-import {IsNotEmpty, IsString} from 'class-validator'
+import { IsNotEmpty, IsString } from 'class-validator'
 
 export class CreateTodoRequestDto {
   @IsString()

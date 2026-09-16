@@ -1,9 +1,9 @@
 import { JSONSchema } from '@by-muris/barts-api'
-import {IsEnum, IsInstance, IsInt, IsString} from 'class-validator'
+import { IsEnum, IsInstance, IsInt, IsString } from 'class-validator'
 
 export enum TodoType {
   Personal = 'personal',
-  Work = 'work'
+  Work = 'work',
 }
 
 export class TodoUser {
@@ -27,12 +27,14 @@ export class GetTodoResponseDto {
 
   @IsEnum(TodoType)
   @JSONSchema({ example: TodoType.Personal, enum: Object.values(TodoType) })
-  type!: TodoType;
+  type!: TodoType
 
   @IsInstance(TodoUser)
-  @JSONSchema({ example: {
+  @JSONSchema({
+    example: {
       id: 1,
-      name: 'Arthur'
-    }})
+      name: 'Arthur',
+    },
+  })
   user!: TodoUser
 }

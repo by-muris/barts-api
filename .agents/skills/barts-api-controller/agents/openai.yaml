@@ -1,7 +1,7 @@
 interface:
-  display_name: "Add Barts Controller"
-  short_description: "Group Barts endpoints under a route path"
-  default_prompt: "Use $barts-api-controller to add a controller to this Barts application."
+  display_name: 'Add Barts Controller'
+  short_description: 'Group Barts endpoints under a route path'
+  default_prompt: 'Use $barts-api-controller to add a controller to this Barts application.'
 
 policy:
   allow_implicit_invocation: true

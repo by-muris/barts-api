@@ -1,7 +1,7 @@
 interface:
-  display_name: "Add Barts Endpoint"
-  short_description: "Create Barts endpoints with validation and docs"
-  default_prompt: "Use $barts-api-endpoint to add an endpoint to this Barts controller."
+  display_name: 'Add Barts Endpoint'
+  short_description: 'Create Barts endpoints with validation and docs'
+  default_prompt: 'Use $barts-api-endpoint to add an endpoint to this Barts controller.'
 
 policy:
   allow_implicit_invocation: true

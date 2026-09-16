@@ -55,20 +55,15 @@ export const todosController = controller('/api/todos', ({ endpoint }) => {
     },
   )
 
-  endpoint(
-    '/:id',
-    'get',
-    (req) => handleGetTodoAsync(Number(req.params.id)),
-    {
-      docs: {
-        summary: 'Gets a TODO',
-        tags: ['todos'],
-        responses: {
-          200: GetTodoResponseDto,
-          404: undefined,
-          500: undefined,
-        },
+  endpoint('/:id', 'get', (req) => handleGetTodoAsync(Number(req.params.id)), {
+    docs: {
+      summary: 'Gets a TODO',
+      tags: ['todos'],
+      responses: {
+        200: GetTodoResponseDto,
+        404: undefined,
+        500: undefined,
       },
     },
-  )
+  })
 })

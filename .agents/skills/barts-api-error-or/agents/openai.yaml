@@ -1,7 +1,7 @@
 interface:
-  display_name: "Use Barts ErrorOr"
-  short_description: "Return Barts success and error results"
-  default_prompt: "Use $barts-api-error-or to make this Barts handler return ErrorOr results."
+  display_name: 'Use Barts ErrorOr'
+  short_description: 'Return Barts success and error results'
+  default_prompt: 'Use $barts-api-error-or to make this Barts handler return ErrorOr results.'
 
 policy:
   allow_implicit_invocation: true

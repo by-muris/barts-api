@@ -1,6 +1,6 @@
 import { ok } from '@by-muris/barts-api'
 import type { ErrorOr } from '@by-muris/barts-api'
-import {GetAllTodosResponseDto, TodoType} from './response.js'
+import { GetAllTodosResponseDto, TodoType } from './response.js'
 
 export function handleGetAllTodosAsync(): ErrorOr<GetAllTodosResponseDto> {
   return ok({
