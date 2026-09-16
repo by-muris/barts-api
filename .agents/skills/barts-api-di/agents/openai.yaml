@@ -1,0 +1,7 @@
+interface:
+  display_name: "Use Barts DI"
+  short_description: "Register and inject Barts dependencies"
+  default_prompt: "Use $barts-api-di to add a dependency to this Barts application."
+
+policy:
+  allow_implicit_invocation: true

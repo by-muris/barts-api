@@ -35,7 +35,7 @@ surface.
 Install the package and its peer dependencies:
 
 ```bash
-npm install @by-muris/barts-api express class-validator class-transformer reflect-metadata
+npm install @by-muris/barts-api express class-validator class-transformer class-validator-jsonschema reflect-metadata
 ```
 
 If the app exposes Swagger UI, install that separately:
@@ -47,6 +47,22 @@ npm install --save-dev @types/swagger-ui-express
 
 Swagger UI stays app-side. The package generates the OpenAPI document but does not
 decide which URL should expose documentation.
+
+## Runnable Example
+
+[`example/`](example) is a small local consumer project. It imports this repository
+through a `file:..` dependency and demonstrates controllers, DTO validation, OpenAPI
+JSON, and Swagger UI.
+
+```bash
+cd example
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000/docs/` for Swagger UI or
+`http://localhost:3000/openapi.json` for the generated OpenAPI document. WebStorm-ready
+requests are in [`example/http/`](example/http).
 
 ## TypeScript Configuration
 

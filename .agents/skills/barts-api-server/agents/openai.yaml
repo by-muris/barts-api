@@ -1,0 +1,7 @@
+interface:
+  display_name: "Start Barts Server"
+  short_description: "Create a minimal Barts Express server"
+  default_prompt: "Use $barts-api-server to create a Barts API server entrypoint."
+
+policy:
+  allow_implicit_invocation: true

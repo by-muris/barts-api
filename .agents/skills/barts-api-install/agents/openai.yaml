@@ -1,0 +1,7 @@
+interface:
+  display_name: "Install Barts API"
+  short_description: "Install Barts API and configure TypeScript"
+  default_prompt: "Use $barts-api-install to add Barts API to this application."
+
+policy:
+  allow_implicit_invocation: true
