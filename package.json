@@ -3,6 +3,10 @@
   "version": "0.3.0",
   "description": "A small Express API framework with OpenAPI generation and dependency injection",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/by-muris/barts-api"
+  },
   "files": [
     "dist",
     ".agents",
